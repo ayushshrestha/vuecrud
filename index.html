@@ -35,8 +35,8 @@
                     <td>{{user.username}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.mobile}}</td>
-                    <td><button class="btn btn-light"  data-toggle="modal" data-target="#editUser">EDIT</button></td>
-                    <td><button class="btn btn-danger" data-toggle="modal" data-target="#deleteUser">DELETE</button></td>
+                    <td><button class="btn btn-light"  data-toggle="modal" data-target="#editUser" @click="selectUser(user)">EDIT</button></td>
+                    <td><button class="btn btn-danger" data-toggle="modal" data-target="#deleteUser" @click="selectUser(user)">DELETE</button></td>
                 </tr>
             </table>
         </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" @click="addUser= false; saveUser();" class="btn btn-primary">Save changes</button>
+                        <button type="button" data-dismiss="modal" @click="addUser= false; saveUser();" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" @click="editUser= false; saveUser();" >Update</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="updateUser();" >UPDATE</button>
                     </div>
                 </div>
             </div>
@@ -124,19 +124,19 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                     
-                        You are going to delete
+                        You are going to delete <span class="badge badge-info">{{editUser.username}}</span>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" @click="deleteUser()">Yes</button>
                     </div>
                 </div>
             </div>

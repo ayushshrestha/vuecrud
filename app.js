@@ -30,11 +30,42 @@ var app = new Vue({
             var formData = app.toFormData(app.newUser);
             axios.post("http://localhost/vuephpcrud/api.php?action=create", formData).then(function(response){
                  console.log(response);
-                 app.newUsers = { username: "", email:"", mobile:""};
+                 app.newUser = { username: "", email:"", mobile:""};
                 if(response.data.error){
                     app.alertWarning = response.data.message;
                 }else {
                     //app.users = response.data.users;
+                    app.alertSuccess = response.data.message;
+                    app.getAllUsers();
+                }
+            });
+        },
+        updateUser: function(){
+            //console.log(app.newUsers);
+            var formData = app.toFormData(app.editUser);
+            axios.post("http://localhost/vuephpcrud/api.php?action=update", formData).then(function(response){
+                 //console.log(response);
+                 app.editUser = {};
+                if(response.data.error){
+                    app.alertWarning = response.data.message;
+                }else {
+                    //app.users = response.data.users;
+                    app.alertSuccess = response.data.message;
+                    app.getAllUsers();
+                }
+            });
+        },
+        deleteUser: function(){
+            //console.log(app.newUsers);
+            var formData = app.toFormData(app.editUser);
+            axios.post("http://localhost/vuephpcrud/api.php?action=delete", formData).then(function(response){
+                 //console.log(response);
+                 app.editUser = {};
+                if(response.data.error){
+                    app.alertWarning = response.data.message;
+                }else {
+                    //app.users = response.data.users;
+                    app.alertSuccess = response.data.message;
                     app.getAllUsers();
                 }
             });
@@ -50,8 +81,8 @@ var app = new Vue({
             return form_data;
         },
         clearMessage: function(){
-            app.errorMessage = "";
-            app.successMessage = "";
+            app.alertWarning = "";
+            app.alertSuccess = "";
         }
     }
 })
